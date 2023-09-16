@@ -24,6 +24,9 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'login'      => \Myth\Auth\Filters\LoginFilter::class,
+        'role'       => \Myth\Auth\Filters\RoleFilter::class,
+        'permission' => \Myth\Auth\Filters\PermissionFilter::class,
     ];
 
     /**
@@ -33,10 +36,12 @@ class Filters extends BaseConfig
      * @var array<string, array<string, array<string, string>>>|array<string, array<string>>
      * @phpstan-var array<string, list<string>>|array<string, array<string, array<string, string>>>
      */
+    // Untuk mengatur semua pages agar harus login terlebih dahulu, set di bagian global
     public array $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
+            'honeypot',
+            'csrf',
+            // 'login',
             // 'invalidchars',
         ],
         'after' => [
@@ -57,7 +62,10 @@ class Filters extends BaseConfig
      * permits any HTTP method to access a controller. Accessing the controller
      * with a method you don't expect could bypass the filter.
      */
-    public array $methods = [];
+    public array $methods = [
+        // 'post' => ['InvalidChars', 'csrf'],
+        // 'get'  => ['csrf'],
+    ];
 
     /**
      * List of filter aliases that should run on any
@@ -66,5 +74,9 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+
+    // Untuk filter spesifikasi siapa saja yang boleh login atau page mana saja yang wajib login terlebih dahulu 
+    public array $filters = [
+        'login' => ['before' => ['/','gawe', 'gawe/add', 'gawe/edit/*']],
+    ];
 }
