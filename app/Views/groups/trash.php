@@ -1,16 +1,13 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('content') ?>
-<title>Gawe &mdash; Marrieds</title>
+<title>Trash Bin Groups &mdash; Marrieds</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <section class="section">
     <div class="section-header">
-        <h1>Gawe Page</h1>
-        <div class="section-header-button">
-            <a href="<?= site_url('gawe/add') ?>" class="btn btn-primary">Tambah Data</a>
-        </div>
+        <h1>Trash Bin</h1>
     </div>
 
     <div class="section-body">
@@ -33,41 +30,43 @@
                 </div>
             <?php endif; ?>
             <div class="card">
+
                 <div class="card-header">
-                    <h4>Data Gawe</h4>
-
+                    <div class="section-header-back mr-4">
+                        <a href="<?= site_url('groups') ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i></a>
+                    </div>
+                    <h4>Trash Bin </h4>
+                    <div class="card-header-action">
+                        <a href="<?= site_url('groups/restore') ?>" class="btn btn-info">&nbsp;Restore All</a>
+                    </div>
+                    <div class="card-header-action">
+                        <form method="post" action=" <?= site_url('groups/delete_perm/') ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
+                            <?= csrf_field(); ?>
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>Delete All Permantent</button>
+                        </form>
+                    </div>
                 </div>
-
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-md">
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Date</th>
+                                <th>Nama Group</th>
                                 <th>Informasi</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
-                            <?php foreach ($gawe as $item => $value) : ?>
+                            <?php foreach ($groups as $item => $value) : ?>
                                 <tr>
                                     <td><?= $item + 1 ?></td>
-                                    <td><?= $value->name ?></td>
-                                    <td><?= date('d/m/Y', strtotime($value->date))  ?></td>
-                                    <td><?= $value->info ?></td>
-                                    <td>
-                                        <div class="badge badge-success">Active</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="<?= site_url('gawe/edit/' . $value->id) ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form method="POST" action="delete/<?= $value->id; ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
+                                    <td><?= $value->name_groups ?></td>
+                                    <td><?= $value->info_groups ?></td>
+                                    <td class="text-left" style="width: 30%">
+                                        <a href="<?= site_url('groups/restore/' . $value->id_groups) ?>" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>Restore</a>
+                                        <form method="post" action=" <?= site_url('groups/delete_perm/' . $value->id_groups) ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
                                             <?= csrf_field(); ?>
-                                            <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
-                                    <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
-
                                 </tr>
                             <?php endforeach; ?>
                         </table>

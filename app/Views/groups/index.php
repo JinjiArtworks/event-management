@@ -1,15 +1,15 @@
 <?= $this->extend('layout/default') ?>
 
 <?= $this->section('content') ?>
-<title>Gawe &mdash; Marrieds</title>
+<title>Groups &mdash; Marrieds</title>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <section class="section">
     <div class="section-header">
-        <h1>Gawe Page</h1>
+        <h1>Groups Page</h1>
         <div class="section-header-button">
-            <a href="<?= site_url('gawe/add') ?>" class="btn btn-primary">Tambah Data</a>
+            <a href="<?= site_url('groups/new') ?>" class="btn btn-primary">Tambah Data</a>
         </div>
     </div>
 
@@ -33,43 +33,41 @@
                 </div>
             <?php endif; ?>
             <div class="card">
+
                 <div class="card-header">
-                    <h4>Data Gawe</h4>
-
+                    <h4>Data Groups</h4>
+                    <div class="card-header-action">
+                        <a href="<?= site_url('groups/trash') ?>" class="btn btn-danger"><i class="fa fa-trash">&nbsp;Trash</i></a>
+                    </div>
                 </div>
-
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-md">
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>Informasi</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            <?php foreach ($gawe as $item => $value) : ?>
+                            <thead>
                                 <tr>
-                                    <td><?= $item + 1 ?></td>
-                                    <td><?= $value->name ?></td>
-                                    <td><?= date('d/m/Y', strtotime($value->date))  ?></td>
-                                    <td><?= $value->info ?></td>
-                                    <td>
-                                        <div class="badge badge-success">Active</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="<?= site_url('gawe/edit/' . $value->id) ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form method="POST" action="delete/<?= $value->id; ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
-                                            <?= csrf_field(); ?>
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                    <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
-
+                                    <th>#</th>
+                                    <th>Nama Group</th>
+                                    <th>Informasi</th>
+                                    <th>Action</th>
                                 </tr>
-                            <?php endforeach; ?>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($groups as $item => $value) : ?>
+                                    <tr>
+                                        <td><?= $item + 1 ?></td>
+                                        <td><?= $value->name_groups ?></td>
+                                        <td><?= $value->info_groups ?></td>
+                                        <td class="text-center">
+                                            <a href="<?= site_url('groups/edit/' . $value->id_groups) ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                            <form method="POST" action=" <?= site_url('groups/delete/' . $value->id_groups) ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
+                                                <?= csrf_field(); ?>
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                        <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

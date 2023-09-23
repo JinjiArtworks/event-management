@@ -2,7 +2,6 @@
 
 use CodeIgniter\Router\RouteCollection;
 use Myth\Auth\Config\Auth as AuthConfig;
-
 /**
  * @var RouteCollection $routes
  */
@@ -12,15 +11,29 @@ use Myth\Auth\Config\Auth as AuthConfig;
 //         echo 'Database created successfully';
 //     }
 // });
-$routes->get('/', 'HomeController::index');
+$routes->setAutoRoute(true);
+$routes->get('/home', 'HomeController::index');
 
-$routes->get('gawe', 'GaweController::index');
-$routes->get('gawe/add', 'GaweController::create');
-$routes->post('gawe', 'GaweController::store');
-$routes->get('gawe/edit/(:any)', 'GaweController::edit/$1');
-$routes->put('gawe/(:any)', 'GaweController::update/$1');
-$routes->delete('/delete/(:num)', 'GaweController::delete/$1');
+$routes->get('gawe', 'Gawe::index');
+$routes->get('gawe/add', 'Gawe::create');
+$routes->post('gawe', 'Gawe::store');
+$routes->get('gawe/edit/(:any)', 'Gawe::edit/$1');
+$routes->put('gawe/(:any)', 'Gawe::update/$1');
+$routes->delete('delete/(:num)', 'Gawe::delete/$1');
 
+// groups controller 
+$routes->get('groups/trash', 'Groups::trash');
+$routes->get('groups/restore/(:any)', 'Groups::restore/$1');
+$routes->get('groups/restore', 'Groups::restore'); // untuk restore semua sekalian
+$routes->delete('groups/delete_perm/(:num)', 'Groups::delete_perm/$1');
+$routes->delete('groups/delete_perm', 'Groups::delete_perm');
+$routes->presenter('groups'); // routes presenter harus dibawah routes customnya.
+// Untuk presenter dan menggunakan RESTful dari reseources controller
+// , nama controller usahakan sama dengan nama routes, dan nama folder sesuaikan sama nama function pada controller ?!
+
+
+// Gunakan resources routes
+$routes->resource('contacts');  // sesuaikan dengan nama controllernya.
 
 
 /** @var RouteCollection $routes */
@@ -30,7 +43,6 @@ $routes->group('', ['namespace' => 'Myth\Auth\Controllers'], static function ($r
     // Load the reserved routes from Auth.php
     $config         = config(AuthConfig::class);
     $reservedRoutes = $config->reservedRoutes;
-
     // Login/out
     $routes->get($reservedRoutes['login'], 'AuthController::login', ['as' => $reservedRoutes['login']]);
     $routes->post($reservedRoutes['login'], 'AuthController::attemptLogin');

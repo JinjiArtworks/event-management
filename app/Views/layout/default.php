@@ -217,7 +217,7 @@
                     </li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <img alt="image" src="<?= base_url() ?>/template/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <div class="d-sm-none d-lg-inline-block">Hi, <?= user()->username ?></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-title">Logged in 5 min ago</div>
@@ -247,9 +247,7 @@
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="<?= site_url() ?>">St</a>
                     </div>
-                    <ul class="sidebar-menu">
-                        <?= $this->include('layout/menu') ?>
-                    </ul>
+                    <?= $this->include('layout/menu') ?>
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
                         <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
                             <i class="fas fa-rocket"></i> Upgrade to Pro

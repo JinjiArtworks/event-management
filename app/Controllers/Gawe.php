@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\GaweModel;
 
-class GaweController extends BaseController
+class Gawe extends BaseController
 {
     protected $gaweModel;
     public function __construct()
@@ -13,6 +13,8 @@ class GaweController extends BaseController
     }
     public function index(): string
     {
+        // $idUser = user()->id;
+        // dd($idUser);
         $gawe = $this->gaweModel->get();
         $data = [
             'gawe' => $gawe->getResult(),
@@ -26,6 +28,10 @@ class GaweController extends BaseController
     }
     public function store()
     {
+        // Cara 1 jika reqeust yang dikirim namanya sama dengan tabel di database :
+        // $data = $this->request->getPost();
+
+        // Cara 2 jika request yang dikirim berbeda atau mau di spesifik lebih dalam :
         $this->gaweModel->save([
             'name' => $this->request->getVar('name'),
             'date' => $this->request->getVar('date'),

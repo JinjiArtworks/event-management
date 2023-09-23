@@ -77,6 +77,9 @@ class Filters extends BaseConfig
 
     // Untuk filter spesifikasi siapa saja yang boleh login atau page mana saja yang wajib login terlebih dahulu 
     public array $filters = [
-        'login' => ['before' => ['/','gawe', 'gawe/add', 'gawe/edit/*']],
+        'login' => [
+            'before' =>
+            ['/', 'gawe', 'gawe/*', 'groups', 'groups/*', 'contacts', 'contacts/*']
+        ],
     ];
 }
