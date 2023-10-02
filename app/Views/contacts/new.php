@@ -20,23 +20,41 @@
                     <h4>Tambah Data Contacts</h4>
                 </div>
                 <div class="card-body col-md-6">
+                    <?php $erros = session()->getFlashdata('errors'); ?>
                     <form action="<?= site_url('contacts') ?>" method="POST" autocomplete="off">
                         <?= csrf_field(); ?>
                         <div class="form-group">
                             <label for="">Nama Kontak</label>
-                            <input type="text" name="name_contacts" class="form-control" required>
+                            <input type="text" name="name_contacts" class="form-control  <?= isset($errors['name_contacts']) ? 'is-invalid' : null ?>" value=" <?= old('name_contacts') ?>">
+                            <div class="invalid-feedback">
+                                <?= isset($errors['groups_id']) ? $erros['groups_id'] : null ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Group Contacts</label>
+                            <select name="groups_id" id="" class="form-control <?= isset($errors['groups_id']) ? 'is-invalid' : null ?>">
+                                <option value="" hidden></option>
+                                <?php foreach ($groups as $item => $value) : ?>
+                                    <option value="<?= $value->id_groups ?>" <?= old('id_groups') == $value->id_groups ? 'selected' : null ?>>
+                                        <?= $value->name_groups ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <div class="invalid-feedback">
+                                <?= isset($errors['groups_id']) ? $erros['groups_id'] : null ?>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Alias </label>
-                            <input type="text" name="alias_contacts" class="form-control" required>
+                            <input type="text" name="alias_contacts" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Nomor Handphone </label>
-                            <input type="number" name="phone" class="form-control" required>
+                            <input type="number" name="phone" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" name="email" class="form-control" required>
+                            <input type="text" name="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Alamat</label>
@@ -46,15 +64,7 @@
                             <label for="">Informasi Contacts</label>
                             <textarea name="info_contacts" class="form-control"> </textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="">Group Contacts</label>
-                            <select name="groups_id" id="" class="form-control">
-                                <option value="" hidden></option>
-                                <?php foreach ($groups as $item => $value) : ?>
-                                    <option value="<?= $value->id_groups ?>"><?= $value->name_groups ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+
                         <div>
                             <button type="submit" class="btn btn-success"> <i class="fas fa-paper-plane mr-2"></i>Save</button>
                             <button type="reset" class="btn btn-secondary"> Reset</button>

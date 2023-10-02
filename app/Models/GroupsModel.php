@@ -12,11 +12,21 @@ class GroupsModel extends Model
     // protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     // protected $protectFields    = true;
-    protected $allowedFields    = ['name_groups','info_groups'];
-    
+    protected $allowedFields    = ['name_groups', 'info_groups'];
+
     // Dates
     protected $useTimestamps = true;
     protected $useSoftDeletes   = true;
+    // protected $validationRules = [
+    //     'name_groups'        => 'required|min_length[3]',
+    // ];
+    // protected $validationMessages = [
+    //     'name_groups' => [
+    //         'required' => 'Nama grop wajib di isi',
+    //         'min_length' => 'Nama grop wajib 3 digit',
+    //     ],
+    // ];
+    // protected $skipValidation     = false;
     // protected $dateFormat    = 'datetime';
     // protected $createdField  = 'created_at';
     // protected $updatedField  = 'updated_at';

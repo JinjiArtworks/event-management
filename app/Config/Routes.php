@@ -13,6 +13,7 @@ use Myth\Auth\Config\Auth as AuthConfig;
 // });
 $routes->setAutoRoute(true);
 $routes->get('/home', 'HomeController::index');
+// $routes->get('/', 'HomeController::index');
 
 $routes->get('gawe', 'Gawe::index');
 $routes->get('gawe/add', 'Gawe::create');

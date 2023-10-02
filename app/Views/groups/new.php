@@ -21,10 +21,10 @@
                 </div>
                 <div class="card-body col-md-6">
                     <form action="<?= site_url('groups') ?>" method="POST" autocomplete="off">
-                    <?= csrf_field(); ?>
+                        <?= csrf_field() ?>
                         <div class="form-group">
                             <label for="">Nama Groups</label>
-                            <input type="text" name="name_groups" class="form-control" required>
+                            <input type="text" name="name_groups" class="form-control" >
                         </div>
                         <div class="form-group">
                             <label for="">Informasi Groups</label>

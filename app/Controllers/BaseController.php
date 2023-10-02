@@ -37,7 +37,8 @@ abstract class BaseController extends Controller
      * @var array
      */
     protected $helpers = [
-        'auth',
+        'auth', 'custom'
+        // Custom, ini di ambil dari namaspace awal folder Helpers . e.g: custom_helper, diambil 'custom'-nya saja.
     ];
 
     /**

@@ -79,7 +79,7 @@ class Filters extends BaseConfig
     public array $filters = [
         'login' => [
             'before' =>
-            ['/', 'gawe', 'gawe/*', 'groups', 'groups/*', 'contacts', 'contacts/*']
+            ['/home', 'gawe', 'gawe/*', 'groups', 'groups/*', 'contacts', 'contacts/*']
         ],
     ];
 }

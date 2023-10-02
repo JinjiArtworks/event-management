@@ -42,7 +42,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-md">
+                        <table class="table table-bordered table-md" id="table1">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -59,9 +59,9 @@
                                         <td><?= $value->info_groups ?></td>
                                         <td class="text-center">
                                             <a href="<?= site_url('groups/edit/' . $value->id_groups) ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                            <form method="POST" action=" <?= site_url('groups/delete/' . $value->id_groups) ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
+                                            <form method="POST" action=" <?= site_url('groups/delete/' . $value->id_groups) ?>" class=" d-inline" id="del-<?= $value->id_groups ?>">
                                                 <?= csrf_field(); ?>
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah anda yakin ?" data-confirm-yes="submitDel(<?= $value->id_groups ?>)"> <i class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
                                         <!-- <a href="#" class="btn btn-secondary">Detail</a> -->

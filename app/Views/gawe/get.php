@@ -40,36 +40,39 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-md">
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>Informasi</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            <?php foreach ($gawe as $item => $value) : ?>
+                        <table class="table table-bordered table-md" id="table1">
+                            <thead>
                                 <tr>
-                                    <td><?= $item + 1 ?></td>
-                                    <td><?= $value->name ?></td>
-                                    <td><?= date('d/m/Y', strtotime($value->date))  ?></td>
-                                    <td><?= $value->info ?></td>
-                                    <td>
-                                        <div class="badge badge-success">Active</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="<?= site_url('gawe/edit/' . $value->id) ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form method="POST" action="delete/<?= $value->id; ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
-                                            <?= csrf_field(); ?>
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                    <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
-
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Informasi</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
-                            <?php endforeach; ?>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($gawe as $item => $value) : ?>
+                                    <tr>
+                                        <td><?= $item + 1 ?></td>
+                                        <td><?= $value->name ?></td>
+                                        <td><?= date('d/m/Y', strtotime($value->date))  ?></td>
+                                        <td><?= $value->info ?></td>
+                                        <td>
+                                            <div class="badge badge-success">Active</div>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="<?= site_url('gawe/edit/' . $value->id) ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                            <form method="POST" action="delete/<?= $value->id; ?>" class="d-inline" id="del-<?= $value->id ?>">
+                                                <?= csrf_field(); ?>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="submit" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah anda yakin ?" data-confirm-yes="submitDel(<?= $value->id ?>)"> <i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                        <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

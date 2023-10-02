@@ -22,7 +22,9 @@ class Contacts extends ResourceController
      */
     public function index()
     {
-        $data['contacts'] = $this->contacts->getAll();
+        $keyword = $this->request->getGet('keyword');
+        $data = $this->contacts->getPaginated(10, $keyword);
+        $data['keyword'] = $keyword;
         return view('contacts/index', $data);
     }
 
@@ -55,12 +57,16 @@ class Contacts extends ResourceController
     public function create()
     {
         $data = $this->request->getPost();
-        $this->contacts->insert($data);
-        if ($this->contacts->affectedRows() > 0) {
-            return redirect()->to(site_url('contacts'))->with('Success', 'Data Berhasil ditambahkan');
+        $save = $this->contacts->insert($data);
+        if (!$save) {
+            return redirect()->back()->withInput()->with('errors',$this->contacts->errors());
         } else {
-            return redirect()->to(site_url('contacts'))->with('Error', 'Data Gagal ditambahkan');
+            return redirect()->to(site_url('contacts'))->with('Success', 'Data Berhasil ditambahkan');
         }
+        // if ($this->contacts->affectedRows() > 0) {
+        // } else {
+        //     return redirect()->to(site_url('contacts'))->with('Error', 'Data Gagal ditambahkan');
+        // }
     }
 
     /**

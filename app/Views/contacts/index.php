@@ -36,13 +36,22 @@
 
                 <div class="card-header">
                     <h4>Data contacts</h4>
-                    <div class="card-header-action">
-                        <a href="<?= site_url('contacts/trash') ?>" class="btn btn-danger"><i class="fa fa-trash">&nbsp;Trash</i></a>
-                    </div>
+
+                </div>
+                <div class="card-header">
+                    <form action="" method="GET" autocomplete="off">
+                        <div class="float-left">
+                            <input type="text" name="keyword" value="<?= $keyword ?>" class="form-control" style="width:155pt;" placeholder="Keyword Pencarian">
+                        </div>
+                        <div class="float-right ml-2">
+                            <button type="submit" class="btn btn-primary "> <i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-md">
+                            <!-- id ="table1" -->
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -57,9 +66,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($contacts as $item => $value) : ?>
+                                <?php
+                                $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                                $no = 1 + (10 * ($page - 1)); // dimulai dri angka 1
+                                foreach ($contacts as $value) : ?>
                                     <tr>
-                                        <td><?= $item + 1 ?></td>
+                                        <td><?= $no++ ?></td>
                                         <td><?= $value->name_contacts ?></td>
                                         <td><?= $value->alias_contacts ?></td>
                                         <td><?= $value->phone ?></td>
@@ -69,10 +81,10 @@
                                         <td><?= $value->name_groups ?></td>
                                         <td class="text-center" style="width: 15%">
                                             <a href="<?= site_url('contacts/' . $value->id_contacts . '/edit') ?>" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                            <form method="POST" action=" <?= site_url('contacts/' . $value->id_contacts) ?>" class=" d-inline" onsubmit="return confirm('Yakin ingin menghapus data ?')">
+                                            <form method="POST" action=" <?= site_url('contacts/' . $value->id_contacts) ?>" class=" d-inline" id="del-<?= $value->id_contacts ?>">
                                                 <?= csrf_field(); ?>
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger btn-sm" data-confirm="Hapus Data?|Apakah anda yakin ?" data-confirm-yes="submitDel(<?= $value->id_contacts ?>)"> <i class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
                                         <!-- <a href="#" class="btn btn-secondary">Detail</a> -->
@@ -81,6 +93,12 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <div class="float-left">
+                            <i>Showing <?= 1 + (10 * ($page - 1)); ?> to <?= $no - 1 ?> of <?= $pager->getTotal() ?> entries</i>
+                        </div>
+                        <div class="float-right">
+                            <?= $pager->links('default', 'pagination') ?>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-right">

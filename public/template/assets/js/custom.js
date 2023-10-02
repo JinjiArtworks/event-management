@@ -20,4 +20,18 @@ $("ul.sidebar-menu li a").each(function () {
       .addClass("active");
   }
 });
-console.log(path);
+// console.log(path);
+// Data Tables
+$(document).ready(function () {
+  $("#table1").DataTable();
+});
+
+// Modal showings!
+function submitDel(id) {
+  $("#del-" + id).submit();
+}
+
+function returnLogout() {
+  var link = $("#logout").attr("href");
+  $(location).attr("href", link);
+}

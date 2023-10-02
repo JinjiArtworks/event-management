@@ -6,8 +6,10 @@ use App\Models\GroupsModel;
 use CodeIgniter\RESTful\ResourcePresenter;
 
 class Groups extends ResourcePresenter
+// gunakan resoruces presenter
 {
     protected $groupsModel;
+    // protected $helpers = ['custom']; / gunakan ini jika tidak extends ke base controller untuk mengakses function pada helper.` 
     public function __construct()
     {
         $this->groupsModel = new GroupsModel();
@@ -19,6 +21,11 @@ class Groups extends ResourcePresenter
      */
     public function index()
     {
+        $groups = $this->groupsModel->findAll();
+        $data = [
+            'groups' => $groups,
+            'validation' => \Config\Services::validation(),
+        ];
         $data['groups'] = $this->groupsModel->findAll();
         return view('groups/index', $data);
     }
@@ -55,12 +62,7 @@ class Groups extends ResourcePresenter
     {
         // Cara 1 jika reqeust yang dikirim namanya sama dengan field di database :
         $data = $this->request->getPost();
-
-        // Cara 2 jika request yang dikirim berbeda atau mau di spesifik lebih dalam :
-        // $data = $this->groupsModel->save([
-        //     'name' => $this->request->getVar('name'),
-        //     'info' => $this->request->getVar('info'),
-        // ]);
+        // return dd($data);
         $this->groupsModel->insert($data);
         if ($this->groupsModel->affectedRows() > 0) {
             return redirect()->to(site_url('groups'))->with('Success', 'Data Berhasil ditambahkan');
